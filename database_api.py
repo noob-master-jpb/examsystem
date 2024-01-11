@@ -1,5 +1,4 @@
-from distutils.util import execute
-from sqlite3 import connect
+from sqlite3 import *
 
 con = connect("database.db")
 control = con.cursor()
@@ -72,10 +71,24 @@ class Writer(Database):
         if not lis:
             return
         if into == '':
-            into = "(username, name, student_id, registration_no, dob, course)"
-        self.control.executemany(f"insert into table personal {into} value(?,?,?,?,?,?,)",lis)
+            into = "username, name, student_id, registration_no, dob, course"
+        self.control.executemany(f"insert into personal ({into}) values(?,?,?,?,?,?,)",lis)
         
-    def shedule_exam(self,lis=[],into = "(exam_id, exam_date, start_time, end_time, duration)")
+    def shedule_exam(self,lis=[],into = "exam_id, exam_date, start_time, end_time, duration"):
+        if not lis:
+            return
+        self.control.executemany(f"insert into exam_schedule ({into}) values(?,?,?,?,?,)",lis)
 
-    
-    
+    def add_qustion_paper(self,lis=[],into = "exam_id, q_paper_id, course, Qustion_paper"):
+        if not lis:
+            return
+        self.control.executemany(f"insert into qustion_paper ({into}) values (?,?,?,?,)",lis)
+             
+class Answer_collection(Database):
+    def Collect_Answer(self,lis=[]):
+        if not lis:
+            return
+        self.control.executemany("""insert into answer_collected (exam_id,q_paper_id,student_id,registration_no,answer_produced)
+                                 values(?,?,?,?,?,)""",lis)
+        
+        
