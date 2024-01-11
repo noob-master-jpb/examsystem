@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS login;
 
 CREATE TABLE login (
   username char(15) NOT NULL PRIMARY KEY,
-  password varchar(5000) NOT NULL
+  password varchar(5000) NOT NULL,
+  admin bool Not NULL
 );
 
 DROP TABLE IF EXISTS personal;
