@@ -1,0 +1,7 @@
+database_controler
+    login access
+        register
+        reader
+    read access
+    write access
+    
