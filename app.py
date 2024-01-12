@@ -1,6 +1,7 @@
 from flask import *
 from sqlite3 import *
 
+app = Flask(__name__)
 DATABASE = "database.db"
 
 def get_db():
@@ -8,15 +9,19 @@ def get_db():
     if db is None:
         db = g._database = connect(DATABASE)
     return db
-# con = connect("database.db")
-# control = con.cursor()
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
 
 
 class Database:
     def __init__(self,database) -> None:
-            self.database = database
-            self.connection = connect(database)
+            self.connection = database
             self.control = self.connection.cursor()
+            
 
 class Login(Database):
     def login_data_all(self):
@@ -25,17 +30,19 @@ class Login(Database):
                              """)
         return self.control.fetchall()
     
-    def login_data_user(self,user,by ="username"):
-        self.control.execute(f"select* from login where {by} = '{user}';")
+    def login_data_user(self,user,by ="username",what = '*'):
+        self.control.execute(f"select {what} from login where {by} = '{user}';")
         return self.control.fetchall()
 
-    
+    def admin_list(self):
+        self.admin_list = self.login_data_user("true","admin")  
+        return [i[0] for i in self.admin_list]
+
     def add_user(self,lis=[]):
         if not lis:
             return
         self.control.executemany("insert into login (username,passwprd) values(?,?,?,)",lis)
         
-    
 class System_controler(Database):
     def run(self,data='',ret = 0):
         self.control.execute(data)
@@ -134,20 +141,36 @@ class Answer_key(Database):
         self.control.executemany("insert into answer_key (examid, q_paper_id, answer) values(?,?,?,);",lis)
 
 class Administrator(Reader,Writer,Login,System_controler,Answer_collection,Answer_key,):
-    def rint(self):
+    def ret_admin(self):
         self.admin_list = self.login_data_user("true","admin")
-        
 
-admin = Administrator(get_db())
+# with app.app_context():
+#     au = Login(get_db())
+#     print(au.admin_list())
 
+@app.route("/",methods = ["GET","POST"])
+def test_page():
+    if request.method == "POST":
+        user = request.form['uname']
+        psw = request.form['psw']
+        with app.app_context():
+            auth = Login(get_db())
+            print(auth.login_data_user(user,what = 'password'))
+            print(psw)
+            if psw == auth.login_data_user(user,what = 'password')[0][0]:
+                if user in auth.admin_list():
+                    return "hello admin"
+                return redirect(url_for("student",userid = user))
+    return render_template("login.html")
 
-# @app.route("/", methods = ["GET","POST"])
-# def test_page():
-#     a =''
-#     for i in admin.personal_data("john_doe"):
-#         for j in i:
-#             a += ' ' + str(j)
-#     return f"<html>{a}</html>"
-
-# if __name__ == '__main__':
-#     app.run(debug=True,port=80)
+@app.route("/dashboard/<userid>")
+def student(userid):
+    with app.app_context():
+        read = Reader(get_db())
+        userdata = read.personal_data(userid)
+        userdata=userdata[0]
+        exams = read.exam_schedule_all()
+        return render_template('student.html', exam = exams,userid = userdata[1],std_id =userdata[2],reg_no = userdata[3],dob = userdata[4],course = userdata[5])
+    
+if __name__ == '__main__':
+    app.run(debug=True,port=80)

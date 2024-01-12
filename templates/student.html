@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .exam-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .exam-item {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .result-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="navbar">
+        <header>Student Dashboard</header>
+    </div>
+
+    <div class="dashboard-container">
+
+        <!-- Profile Section -->
+        <div class="section">
+            <h2 class="section-header">Profile:</h2>
+            <div class="profile-info">
+                <p><strong>Name:</strong> {{userid}} </p>
+                <p><strong>Student ID:</strong> {{std_id}}</p>
+                <p><strong>Registration ID:</strong> {{reg_no}}</p>
+                <p><strong>Date of birth:</strong> {{dob}}</p>
+                <p><strong>Course:</strong>{{course}}</p>
+            </div>
+        </div>
+
+        <!-- Upcoming Exams Section -->
+        <div class="section">
+            <h2 class="section-header">Upcoming Exams:</h2>
+            <ul class="exam-list">
+                {% for i in exam %}
+                    <li class="exam-item" id={{i[0]}} >Exam name: {{i[5]}} <br> Date:{{i[1]}} <br>Starts at:{{i[2]}}  </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Live Exams Section -->
+        <!-- <div class="section">
+            <h2 class="section-header">Live Exams:</h2>
+            <ul class="exam-list">
+                <li class="exam-item">Exam 3 - Time Remaining</li>
+            </ul>
+        </div> -->
+
+        <!-- Past Exams Section -->
+        <!-- <div class="section">
+            <h2 class="section-header">Past Exams:</h2>
+            <ul class="exam-list">
+                <li class="exam-item">Exam 1 - Score: 85%</li>
+                <li class="exam-item">Exam 2 - Score: 92%</li>
+            </ul>
+        </div> -->
+
+        <!-- Result Section -->
+        <!-- <div class="section">
+            <h2 class="section-header">Result:</h2>
+            <div class="result-container">
+                <p><strong>Overall Performance:</strong> Average Score: 88%</p>
+            </div>
+        </div> -->
+
+    </div>
+
+</body>
+</html>

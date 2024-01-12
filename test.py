@@ -1,31 +1,9 @@
-# Base class (superclass)
-class Animal:
-    def __init__(self, name):
-        self.name = name
+from database_api import *
 
+r = Reader("database.db")
+a =''
 
-# Subclass
-class Dog(Animal):
-    def speak(self):
-        return f"{self.name} says Woof!"
-
-    def fetch(self):
-        return f"{self.name} is fetching the ball"
-
-
-# Subclass
-class Cat(Animal):
-    def speak(self):
-        return f"{self.name} says Meow!"
-
-    def scratch(self):
-        return f"{self.name} is scratching"
-
-
-# Creating instances of the subclasses
-dog_instance = Dog("Buddy")
-cat_instance = Cat("Whiskers")
-a = Animal("jo")
-# Using methods from the base class
-print(a.speak())
-
+for i in r.personal_data("john_doe"):
+    for j in i:
+        a += ' ' + str(j)
+print(a)
