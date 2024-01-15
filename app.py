@@ -4,6 +4,10 @@ from sqlite3 import *
 app = Flask(__name__)
 DATABASE = "database.db"
 
+# socketio = SocketIO(app)
+
+connected_users = set()
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -148,6 +152,7 @@ class Administrator(Reader,Writer,Login,System_controler,Answer_collection,Answe
 #     au = Login(get_db())
 #     print(au.admin_list())
 
+
 @app.route("/",methods = ["GET","POST"])
 def test_page():
     if request.method == "POST":
@@ -159,7 +164,7 @@ def test_page():
             print(psw)
             if psw == auth.login_data_user(user,what = 'password')[0][0]:
                 if user in auth.admin_list():
-                    return "hello admin"
+                    return render_template("admin.html")
                 return redirect(url_for("student",userid = user))
     return render_template("login.html")
 

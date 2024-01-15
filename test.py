@@ -1,9 +1,3 @@
-from database_api import *
-
-r = Reader("database.db")
-a =''
-
-for i in r.personal_data("john_doe"):
-    for j in i:
-        a += ' ' + str(j)
-print(a)
+import psutil
+# while True:
+print(psutil.virtual_memory().percent)

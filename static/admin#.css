@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: rgb(135, 135, 135);
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    
+}
+
+.left {
+    flex: .5;
+    background-color: beige;
+    padding: 10px;
+    margin: 10px 10px 10px 10px;
+    height: 100vh;
+    
+}
+
+.left div {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 5px;
+    
+}
+
+.mid {
+    flex: 3;
+    background-color: aqua;
+    padding: 10px;
+    margin: 10px 10px 10px 10px;
+}
+.examlist li{
+    list-style-type: none;
+    font-size: 40px;
+}
+.right {
+    flex: 1;
+    background-color: lightgreen;
+    padding: 10px;
+    margin: 10px 10px 10px 10px;
+}

@@ -87,7 +87,7 @@
             <h2 class="section-header">Upcoming Exams:</h2>
             <ul class="exam-list">
                 {% for i in exam %}
-                    <li class="exam-item" id={{i[0]}} >Exam name: {{i[5]}} <br> Date:{{i[1]}} <br>Starts at:{{i[2]}}  </li>
+                    <li class="exam-item" id={{i[0]}} >Exam name: {{i[5]}} <br> Date:{{i[1]}} <br>Starts at:{{i[2]}} <br> <form action=""><input type="button" value="Submit" id ={{i[0]}}></form>  </li>
                 {% endfor %}
             </ul>
         </div>
