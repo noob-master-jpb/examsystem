@@ -1,0 +1,9 @@
+{% extends 'exams_panel.html' %}
+
+{% block content%}
+    
+    {% for i in exams %}
+        <div id="{{i[0]}}"><span>Exam name:{{i[5]}}</span></div>
+    {% endfor %} 
+
+{% endblock %}

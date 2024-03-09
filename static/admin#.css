@@ -1,56 +1,101 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
+*{
     padding: 0;
-}
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-header {
-    background-color: rgb(135, 135, 135);
-    color: white;
-    font-size: 20px;
-    padding: 10px;
-    text-align: center;
-}
-
-main {
-    display: flex;
-    height: 100vh;
-    
-}
-
-.left {
-    flex: .5;
-    background-color: beige;
-    padding: 10px;
-    margin: 10px 10px 10px 10px;
-    height: 100vh;
-    
-}
-
-.left div {
-    border: 1px solid black;
-    margin-bottom: 10px;
-    padding: 5px;
-    
-}
-
-.mid {
-    flex: 3;
-    background-color: aqua;
-    padding: 10px;
-    margin: 10px 10px 10px 10px;
-}
-.examlist li{
-    list-style-type: none;
-    font-size: 40px;
-}
-.right {
-    flex: 1;
-    background-color: lightgreen;
-    padding: 10px;
-    margin: 10px 10px 10px 10px;
-}
+    margin:0;
+   }
+   
+   body{
+       display: flex;
+       position: fixed;
+       height: 100%;
+       width: 100%;
+       background-color: rgb(116, 6, 111);
+   }
+   aside{
+       flex: .5;
+       display: flex;
+       background-color: aqua;
+       width: 100px;
+       /* justify-content:start; */
+       /* align-items: start; */
+       flex-wrap:wrap;
+       /* margin: 10px 10px 10px 10px; */
+       border-radius: 5px;
+   }
+   
+   aside div{
+       text-align: center;
+       display: table;
+       margin: auto 10px auto 10px;
+       height: 5%;
+       width: 100%;
+       border: solid black;
+       background-color: beige;
+       border-radius: 5px;
+   
+   }
+   
+   aside div span{
+       display: table-cell;
+       vertical-align: middle;
+   }
+   
+   main{
+       flex: 5;
+       display:flex;
+       flex-direction: column;
+       background-color: antiquewhite;
+       /* margin: 10px 10px 10px 10px; */
+       /* border-radius: 50px; */
+       /* top:52px; */
+       /* flex-wrap: wrap; */
+       /* border-radius: 5px; */
+      
+   }
+   
+   
+   main div{
+       background-color: rgb(162, 182, 175);
+       /* height: 100%; */
+       /* width: 100%; */
+       /* margin: 10px; */
+       
+   }
+   
+   .option{
+       flex: 1;
+       display: inline-flex;
+       background-color:brown;
+       /* height: 10%; */
+       /* height: 10%; */
+       margin: 10px;
+       justify-content: space-evenly;
+       border-radius: 5px;
+   }
+   
+   .option div{
+       display: table;
+       background-color:bisque;
+       /* height: 100%; */
+       width: 10%; 
+       margin: 10px 10px 10px 10px;
+       padding: 10px;
+       text-align: center;
+       border-radius: 5px;
+   }
+   .option div span{
+       display: table-cell;
+       vertical-align: middle;
+   }
+   .content{
+       flex: 5;
+       background-color: blue;
+       margin: 10px;
+       /* height: 100%; */
+       /* height: 10%; */
+       overflow-y: scroll;
+       border-radius: 5px;
+   }
+   
+   .content div{
+       padding: 0 0 0 5px ;
+   }

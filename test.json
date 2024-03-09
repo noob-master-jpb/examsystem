@@ -1,0 +1,34 @@
+{
+    "person": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "age": 30,
+      "address": {
+        "street": "123 Main St",
+        "city": "Cityville",
+        "state": "ST",
+        "zipCode": "12345"
+      },
+      "contact": {
+        "email": "john.doe@example.com",
+        "phone": "+1 (555) 123-4567"
+      },
+      "isStudent": false,
+      "grades": [95, 88, 92]
+    },
+    "company": {
+      "name": "TechCo",
+      "industry": "Technology",
+      "employees": [
+        {
+          "name": "Alice",
+          "position": "Software Engineer"
+        },
+        {
+          "name": "Bob",
+          "position": "UX Designer"
+        }
+      ]
+    }
+  }
+  

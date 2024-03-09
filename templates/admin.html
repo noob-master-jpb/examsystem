@@ -6,31 +6,26 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href={{url_for('static',filename="admin.css")}}>
+        <link rel="stylesheet" href="{{url_for('static',filename='admin.css')}}">
     </head>
     <body>
-        <header>
-            <div class="appname">App</div>
-            <div class="nav">
-                <div id="home">Home</div>
-                <div id="users">Users</div>
-                <div id="exam">Exams</div>
-            </div>
-            <div class="profile">
-                Admin
-            </div>
-        </div>
-        </header>
+        <aside>
+            <div id="exams_nav">
+                <span><a href="{{url_for('exams_panel')}}">Exams</a></span></div>
+            <div id="result_nav">
+                <span><a href="{{url_for('results_panel')}}">Results</a></span></div>
+            <div id="attendence_nav">
+                <span><a href="#">Attendence</a></span></div>
+            <div id="user_nav">
+                <span><a href="{{url_for('users_panel')}}">Users</a></span></div>
+            <!-- <div id="security_nav"><span>S</span></div> -->
+            <!-- <div id="settings_nav"><span>St</span></div> -->
+            <div id="logout_nav"><span>Logout</span></div>
+        </aside>
         <main>
-            <div id="user_add"><span>Add User</span></div>
-            <div id="new_exam"><span>New Exam</span></div>
-            <div id="results"><span>Results</span></div>
+            {% block body %}
+                
+            {% endblock %}
         </main>
-        <div class="board">
-            <div id="examlist">Exam List</div>
-            <div id="userlist">Userlist</div>
-            <div id="requests">requests</div>
-        </div>
-        
     </body>
 </html>

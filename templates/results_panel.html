@@ -1,0 +1,15 @@
+
+{% extends 'admin.html' %}
+ 
+{% block body %}
+<div class="option">
+    <div id="result_user_list"><a href="{{url_for('results_list_users')}}">User result list</a></div>
+    <div id="result_exam_list"><a href="{{url_for('results_list_exams')}}">exam result list</a></div>
+</div>
+<div class = 'content'>
+    {% block content %}
+        
+    {% endblock %}
+ </div>
+
+{% endblock %}

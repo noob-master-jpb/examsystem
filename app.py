@@ -164,9 +164,19 @@ def test_page():
             print(psw)
             if psw == auth.login_data_user(user,what = 'password')[0][0]:
                 if user in auth.admin_list():
-                    return render_template("admin.html")
+                    return redirect(url_for("admin",userid = user))
                 return redirect(url_for("student",userid = user))
     return render_template("login.html")
+
+@app.route("/dashboard/admin=<userid>")
+def admin(userid):
+    # with app.app_context():
+    #     read = Reader(get_db())
+        # exams= read.exam_schedule_all()
+    return redirect(url_for("exams_panel"))
+    # return render_template("admin.html")
+    
+
 
 @app.route("/dashboard/<userid>")
 def student(userid):
@@ -176,6 +186,75 @@ def student(userid):
         userdata=userdata[0]
         exams = read.exam_schedule_all()
         return render_template('student.html', exam = exams,userid = userdata[1],std_id =userdata[2],reg_no = userdata[3],dob = userdata[4],course = userdata[5])
-    
+
+
+        #exam panel 
+
+
+@app.route('/exams')
+def exams_panel():
+    with app.app_context():
+        read = Reader(get_db())
+        exams = read.exam_schedule_all()
+    return render_template("exams_panel.html")
+
+@app.route('/exams/list')
+def exams_list():
+    with app.app_context():
+        read = Reader(get_db())
+        exams = read.exam_schedule_all()
+    return render_template('exams_list.html',exams = exams)
+
+@app.route('/exams/new')
+def exams_new():
+    return render_template('exams_new.html')
+
+@app.route('/exams/schedule')
+def exams_schedule():
+    return render_template('exams_schedule.html')
+
+
+    #users panel
+
+@app.route("/users")
+def users_panel():
+    with app.app_context():
+        read = Reader(get_db())
+        all_users = read.personal_data_all()
+    return render_template("users_panel.html",all_users=all_users)
+
+@app.route('/users/add')
+def users_add():
+    return render_template('users_add.html')
+
+@app.route('/users/list')
+def users_list():
+    return render_template('users_list.html')
+
+@app.route('/users/bulk_add')
+def users_add_bulk():
+    return render_template('users_add_bulk.html')
+
+    #results panel
+
+
+@app.route("/results")
+def results_panel():
+    return render_template("results_panel.html")
+
+@app.route("/results/list=exams")
+def results_list_exams():
+    with app.app_context():
+        read = Reader(get_db())
+    return render_template("results_exam.html")
+
+@app.route('/results/list=users')
+def results_list_users():
+    return render_template('results_user.html')
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True,port=80)
