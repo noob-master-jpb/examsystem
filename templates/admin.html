@@ -9,23 +9,27 @@
         <link rel="stylesheet" href="{{url_for('static',filename='admin.css')}}">
     </head>
     <body>
-        <aside>
-            <div id="exams_nav">
-                <span><a href="{{url_for('exams_panel')}}">Exams</a></span></div>
-            <div id="result_nav">
-                <span><a href="{{url_for('results_panel')}}">Results</a></span></div>
-            <div id="attendence_nav">
-                <span><a href="#">Attendence</a></span></div>
-            <div id="user_nav">
-                <span><a href="{{url_for('users_panel')}}">Users</a></span></div>
-            <!-- <div id="security_nav"><span>S</span></div> -->
-            <!-- <div id="settings_nav"><span>St</span></div> -->
-            <div id="logout_nav"><span>Logout</span></div>
-        </aside>
-        <main>
-            {% block body %}
-                
-            {% endblock %}
-        </main>
-    </body>
+
+        <header>
+            <div class="logo">iiEm</div>
+            <div class="win">
+                    exams
+            </div>
+                <div class="profile"></div>
+            </header>
+        
+    
+            <main>
+                <div class="nav">
+                    <div id="exams"><span>Exam</span></div>
+                    <div id="result"><span>Results</span></div>
+                    <div id="attendence"><span>Attendence</span></div>
+                    <div id="user"><span>User</span></div>
+                    <!-- <div id="security"><span>S</span></div> -->
+                    <!-- <div id="settings"><span>St</span></div> -->
+                    <div id="logout"><span>Logut</span></div>
+                </div>
+                <div class="content"></div>
+            </main>
+        </body>
 </html>

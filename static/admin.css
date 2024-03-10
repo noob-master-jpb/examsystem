@@ -5,7 +5,7 @@
 
 body{
     position: fixed;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -14,7 +14,7 @@ body{
 
 header{
     /* flex: .05; */
-    background-color: aqua;
+    background-color:rgb(84, 134, 229);
     display: flex;
     height: auto;
     /* width: 100px; */
@@ -25,11 +25,14 @@ header{
     width: 10%;
     text-align: center;
     padding: 10px 0;
+    border-right: solid 2px;
+    background-color: cornflowerblue;
+
 }
 
 .win{
     width: 80%;
-    background-color: white;
+    /* background-color: white; */
     text-align: center;
     padding: 10px 0;
     font-size: 20px;
@@ -37,14 +40,18 @@ header{
 
 .profile{
     width: 10%;
-    background-color: black;
+    background-color: grey;
 }
 .nav {
+    border-right: solid 2px;
+
     /* margin: 5px; */
     display: flex;
     flex-direction: column;
     width: 10%;
-    background-color: blue;
+    background-color: cornflowerblue;
+
+    /* background-color: rgb(219, 219, 219); */
     /* align-items: center; */
     /* width:80%; */
     /* background-color: azure; */
@@ -68,7 +75,7 @@ main{
     
     display: flex;
     /* flex: 5; */
-    background-color: bisque;
+    /* background-color: bisque; */
     width: 100%;
     height: 100%;
     /* border: solid; */
@@ -79,15 +86,17 @@ main{
     /* margin: 10px; */
     
     width: 10%;
-    background-color: blue;
+    /* background-color: blue; */
     
 }
 
 .content{
-    background-color: brown;
+    background-color: rgb(217, 217, 217);
     width: 90%;
-    height: 100%;
+    height: calc(100% - 20px);
     right: 0;
-    
+    /* border-radius: 15px; */
+    position: relative;
     /* margin: 10px; */
+
 }

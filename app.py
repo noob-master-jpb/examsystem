@@ -173,8 +173,8 @@ def admin(userid):
     # with app.app_context():
     #     read = Reader(get_db())
         # exams= read.exam_schedule_all()
-    return redirect(url_for("exams_panel"))
-    # return render_template("admin.html")
+    # return redirect(url_for("exams_panel"))
+    return render_template("admin.html")
     
 
 
