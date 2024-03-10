@@ -22,6 +22,7 @@ header{
 .logo{
     font-size: 20px;
     /* margin: 10px; */
+    min-width: 100px;
     width: 10%;
     text-align: center;
     padding: 10px 0;
@@ -50,7 +51,7 @@ header{
     flex-direction: column;
     width: 10%;
     background-color: cornflowerblue;
-
+    min-width: 100px;
     /* background-color: rgb(219, 219, 219); */
     /* align-items: center; */
     /* width:80%; */
@@ -60,9 +61,12 @@ header{
 }
 
 .nav div{
+    background-color: rgb(214, 214, 214);
     padding: 5px 0px;
     border: solid;
+    border-radius: 8px;
     margin: 5px;
+    text-align: center;
 }
 
 .nav div span{
@@ -81,22 +85,52 @@ main{
     /* border: solid; */
 }
 
-.option{
-    /* flex: .1; */
-    /* margin: 10px; */
-    
-    width: 10%;
-    /* background-color: blue; */
-    
-}
 
 .content{
     background-color: rgb(217, 217, 217);
     width: 90%;
-    height: calc(100% - 20px);
-    right: 0;
+    height: 100%;
+    /* right: 0; */
     /* border-radius: 15px; */
-    position: relative;
+    /* position: relative; */
     /* margin: 10px; */
 
+}
+
+.content div{
+    display: flex;
+}
+
+.options{
+    height: calc(5% - 5px);
+    min-height: 30px;
+    margin: 5px;
+    background-color: hsl(0, 0%, 94%);
+    border-radius: 5px;
+    align-items: center;
+} 
+
+.options div{
+    padding:0 10px;
+    border: solid 1px grey;
+    margin: 0 10px;
+    border-radius: 10px;
+}
+
+.data{
+    background-color: rgb(235,235,235);
+    margin: 5px;
+    height: calc(95% - 10px);
+    min-height: 200px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.data div{
+    margin: 10px 10px;
+    padding:  10px;
+    background-color: rgb(215, 215, 215);
+    border-radius: 5px;
+    border: solid grey;
 }
