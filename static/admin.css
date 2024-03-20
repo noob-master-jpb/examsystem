@@ -134,3 +134,63 @@ main{
     border-radius: 5px;
     border: solid grey;
 }
+
+.homepage{
+    display: flex;
+    /* background-color: aliceblue; */
+    margin: 5px;
+    height: calc(100% - 10px);
+    width: calc(100% - 10px);
+}
+
+.exam_home{
+    flex:.8;
+    display: flex;
+    border-radius: 5px;
+    flex-direction: column;
+    background-color:rgb(235,235,235);
+    margin: 5px;
+}
+
+
+
+.exam_list{
+    margin: 10px 10px;
+    padding:  10px;
+    background-color: rgb(215, 215, 215);
+    border-radius: 5px;
+    border: solid grey;
+    justify-content: space-between;
+}
+.details{
+    /* margin: 10px 10px; */
+    /* padding:  10px; */
+    /* background-color: rgb(97, 0, 0); */
+    /* border-radius: 5px; */
+    /* border: solid black; */
+}
+.exam_home div button{
+    align-self: center;
+    border: none;
+    padding: 3px;
+    /* background-color: rgb(0, 0, 0, 0); */
+    /* background-color: ; */
+}
+
+
+.user_home{
+    flex: .2;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: beige;
+    margin: 5px;
+}
+
+.user_home div{
+    margin: 10px 10px;
+    padding:  10px;
+    background-color: rgb(215, 215, 215);
+    border-radius: 5px;
+    border: solid grey;
+}

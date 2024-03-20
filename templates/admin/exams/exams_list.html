@@ -1,9 +1,14 @@
-{% extends 'exams_panel.html' %}
+{% extends 'admin/admin.html' %}
 
-{% block content%}
-    
-    {% for i in exams %}
-        <div id="{{i[0]}}"><span>Exam name:{{i[5]}}</span></div>
-    {% endfor %} 
+{% block data%}
+<div class="data">
+                    
 
+    <div id="list">a</div>
+</div>
+
+{% endblock %}
+
+{%block jscript%}
+<script src="{{ url_for('static', filename='test.js') }}"></script>
 {% endblock %}

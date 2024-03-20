@@ -80,6 +80,11 @@ class System_controler(Database):
                                  ;values(?,?,?,?,?,?,);""",lis)
     
 class Reader(Database):
+    def read_head(self,table_name):
+        self.control.execute(f"PRAGMA table_info({table_name});")
+        
+        return [i[1] for i in self.control.fetchall()]
+        
     def personal_data_all(self):
         self.control.execute("select * from personal;")
         return self.control.fetchall()
@@ -171,10 +176,10 @@ def test_page():
 @app.route("/dashboard/admin=<userid>")
 def admin(userid):
     # with app.app_context():
-    #     read = Reader(get_db())
+        # read = Reader(get_db())
         # exams= read.exam_schedule_all()
     # return redirect(url_for("exams_panel"))
-    return render_template("admin.html")
+    return render_template("/admin/admin.html",title = 'Home')
     
 
 
@@ -196,61 +201,76 @@ def exams_panel():
     with app.app_context():
         read = Reader(get_db())
         exams = read.exam_schedule_all()
-    return render_template("exams_panel.html")
+    # print(exams )
+    return render_template("/admin/exams/exams_panel.html")
+
+@app.route('/examlist')
+def exam_data():
+    with app.app_context():
+        read = Reader(get_db())
+        exams = read.exam_schedule_all()
+        head = read.read_head('exam_schedule')
+        all = []
+        for j in exams:
+            temp = {}
+            for i in range(len(head)):
+                temp[head[i]] = j[i]
+            all.append(temp)
+        return jsonify(all)
 
 @app.route('/exams/list')
 def exams_list():
     with app.app_context():
         read = Reader(get_db())
         exams = read.exam_schedule_all()
-    return render_template('exams_list.html',exams = exams)
+    return render_template('admin/exams/exams_list.html',exams = exams)
 
 @app.route('/exams/new')
 def exams_new():
-    return render_template('exams_new.html')
+    return render_template('admin/exams/exams_new.html')
 
 @app.route('/exams/schedule')
 def exams_schedule():
-    return render_template('exams_schedule.html')
+    return render_template('admin/exams/exams_schedule.html')
 
 
     #users panel
 
-@app.route("/users")
-def users_panel():
-    with app.app_context():
-        read = Reader(get_db())
-        all_users = read.personal_data_all()
-    return render_template("users_panel.html",all_users=all_users)
+# @app.route("/users")
+# def users_panel():
+#     with app.app_context():
+#         read = Reader(get_db())
+#         all_users = read.personal_data_all()
+#     return render_template("users_panel.html",all_users=all_users)
 
-@app.route('/users/add')
-def users_add():
-    return render_template('users_add.html')
+# @app.route('/users/add')
+# def users_add():
+#     return render_template('users_add.html')
 
-@app.route('/users/list')
-def users_list():
-    return render_template('users_list.html')
+# @app.route('/users/list')
+# def users_list():
+#     return render_template('users_list.html')
 
-@app.route('/users/bulk_add')
-def users_add_bulk():
-    return render_template('users_add_bulk.html')
-
-    #results panel
+# @app.route('/users/bulk_add')
+# def users_add_bulk():
+#     return render_template('users_add_bulk.html')
 
 
-@app.route("/results")
-def results_panel():
-    return render_template("results_panel.html")
+    #rsesult panel
 
-@app.route("/results/list=exams")
-def results_list_exams():
-    with app.app_context():
-        read = Reader(get_db())
-    return render_template("results_exam.html")
+# @app.route("/results")
+# def results_panel():
+#     return render_template("results_panel.html")
 
-@app.route('/results/list=users')
-def results_list_users():
-    return render_template('results_user.html')
+# @app.route("/results/list=exams")
+# def results_list_exams():
+#     with app.app_context():
+#         read = Reader(get_db())
+#     return render_template("results_exam.html")
+
+# @app.route('/results/list=users')
+# def results_list_users():
+#     return render_template('results_user.html')
 
 
 

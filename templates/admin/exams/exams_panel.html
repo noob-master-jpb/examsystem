@@ -1,15 +1,17 @@
+{% extends 'admin/admin.html' %}
 
-{% extends 'admin.html' %}
- 
-{% block body %}
-<div class="option">
-    <div id="exam_new"><a href="{{url_for('exams_new')}}">New exam</a></div>
-    <div id="exam_list"><a href="{{url_for('exams_list')}}">Exam list</a></div>
-    <div id="schedule"><a href="{{url_for('exams_schedule')}}">Schedule</a></div>
+{% block data%}
+<div class="options">
+    <div id="id1">option1</div>
+    <div id="id2">option2</div>
+    <div id="id3">option3</div>
 </div>
-<div class = 'content'>
-    {% block content %}
-        
-    {% endblock %}
- </div>
-{% endblock %}.
+<div class="data">
+    <div id="list"></div>
+</div>
+
+{% endblock %}
+
+{%block jscript%}
+<script src="{{ url_for('static', filename='test.js') }}"></script>
+{% endblock %}

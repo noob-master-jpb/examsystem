@@ -3,33 +3,42 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>{{title}}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{url_for('static',filename='admin.css')}}">
+        <link rel="stylesheet" href="..\..\static\admin.css">
     </head>
     <body>
 
-        <header>
-            <div class="logo">iiEm</div>
-            <div class="win">
-                    exams
+    <header>
+        <div class="logo">iiEm</div>
+        <div class="win">
+                Home
+        </div>
+            <div class="profile"></div>
+        </header>
+        <main>
+            <div class="nav">
+                <div id="home">Home</div>
+                <div id="exams"><span>Exam</span></div>
+                <div id="result"><span>Results</span></div>
+                <div id="attendence"><span>Attendence</span></div>
+                <div id="user"><span>User</span></div>
+                <div id="logout"><span>Logut</span></div>
             </div>
-                <div class="profile"></div>
-            </header>
-        
+            <div class="content">
+                
+                
+                {% block data %}
+                
+                {% endblock %}
+                
+                
+
+            </div>
+        </main>
+    </body>
+    {% block jscript %}
     
-            <main>
-                <div class="nav">
-                    <div id="exams"><span>Exam</span></div>
-                    <div id="result"><span>Results</span></div>
-                    <div id="attendence"><span>Attendence</span></div>
-                    <div id="user"><span>User</span></div>
-                    <!-- <div id="security"><span>S</span></div> -->
-                    <!-- <div id="settings"><span>St</span></div> -->
-                    <div id="logout"><span>Logut</span></div>
-                </div>
-                <div class="content"></div>
-            </main>
-        </body>
+    {%endblock%}
 </html>
