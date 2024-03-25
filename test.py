@@ -1,10 +1,25 @@
-cake = 'Python is fun'
+all = []
 
-l = cake.split()
-print(l)
-s_new = '-'.join( [l[0].upper() ,l[1] ,l[2].capitalize()] )
+ctrl = 1
 
-print(s_new)
 
-# a = ['aa','bb','aditi']
-# print(a[0:2])
+while ctrl:
+    print('something')
+    while True:
+        temp = {}
+        name = input('enter name: ')
+        if name == 'stop':
+            ctrl = 0
+            break
+            
+        Class = input('enter class: ')
+        if Class == 'stop':
+            ctrl = 0
+            break
+            
+        temp['name'] = name
+        temp['class'] = Class
+        all.append(temp)
+    print('anything')
+    
+print(all)

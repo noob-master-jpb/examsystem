@@ -3,6 +3,8 @@
     margin:0;
 }
 
+/* Universal */
+
 body{
     position: fixed;
     /* background-color: blueviolet; */
@@ -42,7 +44,15 @@ header{
 .profile{
     width: 10%;
     background-color: grey;
+
+
 }
+
+
+                                                                /* navigatiom bar */
+
+
+
 .nav {
     border-right: solid 2px;
 
@@ -67,9 +77,13 @@ header{
     border-radius: 8px;
     margin: 5px;
     text-align: center;
+    text-decoration: none;
 }
-
+.nav a{
+    text-decoration: none;
+}
 .nav div span{
+    
     padding: 10px 0;
 }
 
@@ -101,39 +115,11 @@ main{
     display: flex;
 }
 
-.options{
-    height: calc(5% - 5px);
-    min-height: 30px;
-    margin: 5px;
-    background-color: hsl(0, 0%, 94%);
-    border-radius: 5px;
-    align-items: center;
-} 
 
-.options div{
-    padding:0 10px;
-    border: solid 1px grey;
-    margin: 0 10px;
-    border-radius: 10px;
-}
 
-.data{
-    background-color: rgb(235,235,235);
-    margin: 5px;
-    height: calc(95% - 10px);
-    min-height: 200px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-}
 
-.data div{
-    margin: 10px 10px;
-    padding:  10px;
-    background-color: rgb(215, 215, 215);
-    border-radius: 5px;
-    border: solid grey;
-}
+/* homepage */
+
 
 .homepage{
     display: flex;
@@ -141,6 +127,7 @@ main{
     margin: 5px;
     height: calc(100% - 10px);
     width: calc(100% - 10px);
+
 }
 
 .exam_home{
@@ -150,11 +137,18 @@ main{
     flex-direction: column;
     background-color:rgb(235,235,235);
     margin: 5px;
+    overflow-y:auto;
+}
+
+#exam_list_heading{
+    padding: 5px;
+    justify-content: center;
+    font-size: larger;
+    
 }
 
 
-
-.exam_list{
+.exams{
     margin: 10px 10px;
     padding:  10px;
     background-color: rgb(215, 215, 215);
@@ -162,14 +156,12 @@ main{
     border: solid grey;
     justify-content: space-between;
 }
-.details{
-    /* margin: 10px 10px; */
-    /* padding:  10px; */
-    /* background-color: rgb(97, 0, 0); */
-    /* border-radius: 5px; */
-    /* border: solid black; */
+
+.info_exam{
+    text-align: center;
 }
-.exam_home div button{
+
+.exams button{
     align-self: center;
     border: none;
     padding: 3px;
@@ -193,4 +185,60 @@ main{
     background-color: rgb(215, 215, 215);
     border-radius: 5px;
     border: solid grey;
+}
+
+
+                                    /* exam panel */
+
+
+
+
+.options{
+    height: calc(5% - 5px);
+    min-height: 30px;
+    margin: 5px;
+    background-color: hsl(0, 0%, 94%);
+    border-radius: 5px;
+    align-items: center;
+} 
+
+.options div{
+    padding:0 10px;
+    border: solid 1px grey;
+    margin: 0 10px;
+    border-radius: 10px;
+}
+
+.exam_list{
+    flex:.8;
+    display: flex;
+    height: calc(100% - 5px);
+    border-radius: 5px;
+    flex-direction: column;
+    background-color:rgb(235,235,235);
+    margin: 5px;
+    overflow-y:auto;
+}
+
+            /* result list */
+
+.result_list{
+    /* flex:.8; */
+    display: flex;
+    height: calc(100% - 5px);
+    border-radius: 5px;
+    flex-direction: column;
+    background-color:rgb(235,235,235);
+    margin: 5px;
+    overflow-y:auto;
+}
+
+.result_exam{
+    margin: 10px 10px;
+    padding:  10px;
+    background-color: rgb(215, 215, 215);
+    border-radius: 5px;
+    border: solid grey;
+    justify-content: space-between;
+    
 }

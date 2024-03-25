@@ -20,6 +20,15 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
+def json_convertion(read,data,tablename):
+    head = read.read_head(tablename)
+    all = []
+    for j in data:
+        temp = {}
+        for i in range(len(head)):
+            temp[head[i]] = j[i]
+        all.append(temp)
+    return all
 
 class Database:
     def __init__(self,database) -> None:
@@ -92,6 +101,7 @@ class Reader(Database):
     def personal_data(self,user,by="username"):
         self.control.execute(f"""select * from personal where {by} = '{user}';""")
         return self.control.fetchall()
+
     
     def qustion_paper_all(self):
         self.control.execute("select * from qustion_paper;")
@@ -159,7 +169,7 @@ class Administrator(Reader,Writer,Login,System_controler,Answer_collection,Answe
 
 
 @app.route("/",methods = ["GET","POST"])
-def test_page():
+def login():
     if request.method == "POST":
         user = request.form['uname']
         psw = request.form['psw']
@@ -169,17 +179,25 @@ def test_page():
             print(psw)
             if psw == auth.login_data_user(user,what = 'password')[0][0]:
                 if user in auth.admin_list():
-                    return redirect(url_for("admin",userid = user))
+                    return redirect(url_for("admin"))
                 return redirect(url_for("student",userid = user))
     return render_template("login.html")
 
-@app.route("/dashboard/admin=<userid>")
-def admin(userid):
+@app.route("/dashboard/admin")
+def admin():
     # with app.app_context():
         # read = Reader(get_db())
         # exams= read.exam_schedule_all()
     # return redirect(url_for("exams_panel"))
-    return render_template("/admin/admin.html",title = 'Home')
+    return render_template("/admin/homepage.html",title = 'Home',)
+
+
+@app.route("/userlist")
+def userlist():
+    with app.app_context():
+        read = Reader(get_db())
+        data = read.personal_data_all()
+        return jsonify(json_convertion(read,data,'personal'))
     
 
 
@@ -202,38 +220,39 @@ def exams_panel():
         read = Reader(get_db())
         exams = read.exam_schedule_all()
     # print(exams )
-    return render_template("/admin/exams/exams_panel.html")
+    return render_template("/admin/exams/exams_panel.html",title='exams')
 
 @app.route('/examlist')
 def exam_data():
     with app.app_context():
         read = Reader(get_db())
         exams = read.exam_schedule_all()
-        head = read.read_head('exam_schedule')
-        all = []
-        for j in exams:
-            temp = {}
-            for i in range(len(head)):
-                temp[head[i]] = j[i]
-            all.append(temp)
-        return jsonify(all)
+        # head = read.read_head('exam_schedule')
+        # all = []
+        # for j in exams:
+        #     temp = {}
+        #     for i in range(len(head)):
+        #         temp[head[i]] = j[i]
+        #     all.append(temp)
+        return jsonify(json_convertion(read,exams,'exam_schedule'))
 
-@app.route('/exams/list')
-def exams_list():
+        # results
+
+@app.route("/results")
+def results_panel():
+    return render_template("/admin/results/results_panel.html",title = 'results')
+
+
+@app.route("/results/<by>")
+def result_list(by):
     with app.app_context():
         read = Reader(get_db())
-        exams = read.exam_schedule_all()
-    return render_template('admin/exams/exams_list.html',exams = exams)
-
-@app.route('/exams/new')
-def exams_new():
-    return render_template('admin/exams/exams_new.html')
-
-@app.route('/exams/schedule')
-def exams_schedule():
-    return render_template('admin/exams/exams_schedule.html')
-
-
+        if by == 'exams':
+            data = read.exam_schedule_all()
+            return jsonify(json_convertion(read,data,'exam_schedule'))
+        elif by == 'users':
+            data = read.personal_data_all()
+            return jsonify({1:2})
     #users panel
 
 # @app.route("/users")

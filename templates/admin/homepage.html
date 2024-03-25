@@ -1,0 +1,31 @@
+{% extends 'admin/admin.html' %}
+
+{% block data %}
+
+<div class="homepage">
+    <div class="exam_home">
+        <div id="exam_list_heading">
+            Exam List
+        </div>
+        <div class = "exams" id="exam1">
+            <div class="data_exam" id= "data_exam1">Exam 1</div> 
+            <div class ='info_exam' id="info_exam1">
+                date: 12.01.23 <br>
+                time: 12:00:00 <br>
+                Duration : 02:00:00 
+            </div> 
+            <button>more</button>
+        </div>
+        
+    </div>
+
+    <div class="user_home">
+        <div id="user1">User 1 @1125</div>
+    </div>
+</div>
+
+{% endblock %}
+
+{%block jscript%}
+<script src="{{ url_for('static', filename='home.js') }}"></script>
+{% endblock %}

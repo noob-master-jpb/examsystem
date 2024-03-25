@@ -1,15 +1,21 @@
+{% extends 'admin/admin.html' %}
 
-{% extends 'admin.html' %}
- 
-{% block body %}
-<div class="option">
-    <div id="result_user_list"><a href="{{url_for('results_list_users')}}">User result list</a></div>
-    <div id="result_exam_list"><a href="{{url_for('results_list_exams')}}">exam result list</a></div>
+{% block data%}
+<div class="options">
+    <div id="opt_result_list">By Exams</div>
+    <div id="opt_result_user">By User</div>
+    <div id="id3">option3</div>
+</div>                    
+<div class="result_list">
+    <div class="result_exam" id = 'exam1'>
+        <div class="data_exam" id = "data_exam1">Exam 1</div>
+        <div class="info_exam" id = 'info_exam1'>Attendence:45</div>
+        <button class ='btn_result' id = 'btn_exam1'>View result</button>
+    </div>
 </div>
-<div class = 'content'>
-    {% block content %}
-        
-    {% endblock %}
- </div>
 
+{% endblock %}
+
+{%block jscript%}
+<script src="{{ url_for('static', filename='result.js') }}"></script>
 {% endblock %}

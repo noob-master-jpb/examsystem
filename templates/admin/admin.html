@@ -13,18 +13,18 @@
     <header>
         <div class="logo">iiEm</div>
         <div class="win">
-                Home
+                {{title}}
         </div>
             <div class="profile"></div>
         </header>
         <main>
             <div class="nav">
-                <div id="home">Home</div>
-                <div id="exams"><span>Exam</span></div>
-                <div id="result"><span>Results</span></div>
-                <div id="attendence"><span>Attendence</span></div>
-                <div id="user"><span>User</span></div>
-                <div id="logout"><span>Logut</span></div>
+                <div id="home"><a href="{{url_for('admin')}}">Home</a></div>
+                <div id="home"><a href="{{url_for('exams_panel')}}">Exams</a></div>
+                <div id="home"><a href="{{url_for('results_panel')}}">Results</a></div>
+                <div id="home"><a href="{{url_for('admin')}}">Users</a></div>
+                <div id="home"><a href="{{url_for('admin')}}">Attendence</a></div>
+
             </div>
             <div class="content">
                 
