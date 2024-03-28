@@ -1,3 +1,56 @@
 {
-    "breadcrumbs.enabled": true
+    "breadcrumbs.enabled": true,
+    "code-runner.languageIdToFileExtensionMap": {
+
+        "bat": ".bat",
+        "powershell": ".ps1",
+        "typescript": ".ts"
+    },
+    "python.autoComplete.extraPaths": [
+
+
+
+    ],
+    "python.analysis.diagnosticSeverityOverrides": {
+
+
+
+    },
+    "python.terminal.launchArgs": [
+        
+
+
+    ],
+    "python.analysis.fixAll": [
+
+    ],
+    "python.analysis.packageIndexDepths": [
+
+        {
+            "name": "sklearn",
+            "depth": 2
+        },
+        {
+            "name": "matplotlib",
+            "depth": 2
+        },
+        {
+            "name": "scipy",
+            "depth": 2
+        },
+        {
+            "name": "django",
+            "depth": 2
+        },
+        {
+            "name": "flask",
+            "depth": 2
+        },
+        {
+            "name": "fastapi",
+            "depth": 2
+        }
+    ],
+    "python.analysis.extraPaths": []
+    
 }

@@ -20,7 +20,8 @@ CREATE TABLE exam_schedule (
   end_time time DEFAULT NULL,
   duration time DEFAULT NULL, 
   exam_name char(50),
-  "exam_status" char(10));
+  "exam_status" char(10) DEFAULT 'upcoming'
+);
 
 INSERT INTO exam_schedule VALUES(1,'2024-01-15','09:00:00','12:00:00','03:00:00','sem1','finished');
 INSERT INTO exam_schedule VALUES(4,'2024-03-10','09:00:00','12:00:00','03:00:00','sem2','pending');

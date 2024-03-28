@@ -1,25 +1,18 @@
-all = []
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-ctrl = 1
+app = Flask(__name__)
+app.debug = True
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
+db = SQLAlchemy(app)
+from models import *
 
 
-while ctrl:
-    print('something')
-    while True:
-        temp = {}
-        name = input('enter name: ')
-        if name == 'stop':
-            ctrl = 0
-            break
-            
-        Class = input('enter class: ')
-        if Class == 'stop':
-            ctrl = 0
-            break
-            
-        temp['name'] = name
-        temp['class'] = Class
-        all.append(temp)
-    print('anything')
     
-print(all)
+
+
+
+if __name__ == '__main__':
+    app.run()
+# app.run()

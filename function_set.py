@@ -38,24 +38,14 @@ def log(filename,data):
     with open(filename,'a+') as file:
         file.write(data+'\n')
 
-a = [(1, '2024-01-15', '09:00:00', '12:00:00', '03:00:00', 'sem1'), 
-     (4, '2024-03-10', '09:00:00', '12:00:00', '03:00:00', 'sem2'), 
-     (5, '2024-03-25', '13:30:00', '16:30:00', '03:00:00', 'sem3'), 
-     (2, '2024-02-01', '10:30:00', '13:30:00', '03:00:00', 'sem4'), 
-     (3, '2024-02-15', '14:00:00', '17:00:00', '03:00:00', 'sem5')]
-cur.execute("PRAGMA table_info(exam_schedule);")
-head = [i[1] for i in cur.fetchall()]
-all = []
-for j in a:
-    temp = {}
-    for i in range(len(head)):
-        
-        temp[head[i]] = j[i]
-    # print(temp)
-    all.append(temp)
-# print(exams)
-for i in all:
-    print(i)
-    
 
-# a = [i for i in range(0,2)]
+
+def json_convertion(read,data,tablename):
+    head = read.read_head(tablename)
+    all = []
+    for j in data:
+        temp = {}
+        for i in range(len(head)):
+            temp[head[i]] = j[i]
+        all.append(temp)
+    return all
