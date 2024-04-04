@@ -93,7 +93,7 @@ function verify(){
 
 
 (async () => {
-    let response = await fetch('/userlist')
+    let response = await fetch('/studentlist')
     users = await response.json();
     let user_area = document.querySelector('.user_home')
     // console.log(users)

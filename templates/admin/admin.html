@@ -7,23 +7,28 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="..\..\static\admin.css">
+        {%block stylesheet%}
+
+        {%endblock%}
+
+        
     </head>
     <body>
 
     <header>
         <div class="logo">iiEm</div>
         <div class="win">
-                {{title}}
+                <!-- {{title}} -->
         </div>
             <div class="profile"></div>
         </header>
         <main>
             <div class="nav">
-                <div id="home"><a href="{{url_for('admin')}}">Home</a></div>
-                <div id="home"><a href="{{url_for('exams_panel')}}">Exams</a></div>
-                <div id="home"><a href="{{url_for('results_panel')}}">Results</a></div>
-                <div id="home"><a href="{{url_for('admin')}}">Users</a></div>
-                <div id="home"><a href="{{url_for('admin')}}">Attendence</a></div>
+                <div id="home"><a href="{{url_for('admin')}}">Home</a></div> 
+                <div id="home"><a href="{{url_for('exams')}}">Exams</a></div>
+                <div id="home"><a href="">Results</a></div>
+                <div id="home"><a href="">Users</a></div>
+                <div id="home"><a href="">Attendence</a></div>
 
             </div>
             <div class="content">

@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import *
 db = SQLAlchemy()
+
 class Login(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
@@ -8,6 +10,9 @@ class Login(db.Model):
 
     student = db.relationship('Student', backref='login', uselist=False)
     teacher = db.relationship('Teacher', backref='login', uselist=False)
+    
+    def __getitem__(self, index):
+        return {'username':self.username, 'password':self.password}[index]
 
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,7 +27,16 @@ class Student(db.Model):
     attendance = db.relationship('Attendance', backref='student')
     answers_col = db.relationship('AnswersCollected', backref='student')
     result = db.relationship('Results', backref='student')
-
+    
+    def row_all(self):
+        return {
+            'username':self.username,
+            'name':self.name,
+            'student_id':self.student_id,
+        }
+    def __getitem__(self, index):
+        return {'username':self.username, 'name':self.name, 'student_id':self.student_id, 'reg_id':self.reg_id, 'dob':self.dob, 'course':self.course}[index]
+    
 class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
@@ -31,6 +45,9 @@ class Teacher(db.Model):
     teacher_id = db.Column(db.Integer, unique=True, nullable=False)
 
     q_paper = db.relationship('QuestionPaper', backref='teacher')
+    
+    def __getitem__(self, index):
+        return {'username':self.username, 'name':self.name, 'teacher_id':self.teacher_id}[index]
 
 class ExamSchedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -47,6 +64,20 @@ class ExamSchedule(db.Model):
     attendance = db.relationship('Attendance', backref='exam_schedule')
     answers_col = db.relationship('AnswersCollected', backref='exam_schedule')
     result = db.relationship('Results', backref='exam_schedule')
+    
+    def row_all(self):
+        return {'exam_id':self.exam_id,
+                'exam_date':self.exam_date.strftime("%Y-%m-%d"),
+                'start_time':self.start_time.strftime("%H:%M:%S"),
+                'end_time':self.end_time.strftime("%H:%M:%S"),
+                'duration':self.duration.strftime("%H:%M:%S"),
+                'exam_name':self.exam_name,'exam_status':self.exam_status}
+        
+    def __getitem__(self, index):
+        return {'exam_id':self.exam_id,
+                'exam_date':self.exam_date,'start_time':self.start_time,'end_time':self.end_time,
+                'duration':self.duration,
+                'exam_name':self.exam_name,'exam_status':self.exam_status}[index]
 
 class QuestionPaper(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -58,20 +89,34 @@ class QuestionPaper(db.Model):
     question_paper = db.Column(db.LargeBinary, nullable=False)
 
     answer_key = db.relationship('AnswerKey', backref='question_paper')
+    
+    def __getitem__(self, index):
+        return {'q_paper_id':self.q_paper_id, 'course':self.course, 'teacher_id':self.teacher_id, 'question_paper':self.question_paper}[index]
 
 class AnswerKey(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
     q_paper_id = db.Column(db.Integer, db.ForeignKey('question_paper.q_paper_id', onupdate='CASCADE'), unique=True)
     answer = db.Column(db.LargeBinary)
+    
+    def __getitem__(self, index):
+        return {'q_paper_id':self.q_paper_id, 'answer':self.answer}[index]
 
 class Attendance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
     att_id = db.Column(db.Integer, unique=True)
-    student_id = db.Column(db.Integer, db.ForeignKey('student.id', onupdate="CASCADE"), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.student_id', onupdate="CASCADE"), nullable=False)
     exam_id = db.Column(db.Integer, db.ForeignKey('exam_schedule.exam_id', onupdate="CASCADE"), nullable=False)
     status = db.Column(db.Integer, nullable=False)
+    
+    def count_exam(self):
+        return db.session.query(Attendance).filter_by(status=1).count()
+    
+    def __getitem__(self, index):
+        return {'att_id':self.att_id, 'student_id':self.student_id, 'exam_id':self.exam_id, 'status':self.status}[index]
+    
+
 
 class AnswersCollected(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -80,6 +125,9 @@ class AnswersCollected(db.Model):
     exam_id = db.Column(db.Integer, db.ForeignKey('exam_schedule.exam_id', onupdate="CASCADE"), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id', onupdate="CASCADE"), nullable=False)
     answer_produced = db.Column(db.LargeBinary)
+    
+    def __getitem__(self, index):
+        return {'ans_id':self.ans_id, 'exam_id':self.exam_id, 'student_id':self.student_id, 'answer_produced':self.answer_produced}[index]
 
 class Results(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -89,6 +137,20 @@ class Results(db.Model):
     exam_id = db.Column(db.Integer, db.ForeignKey('exam_schedule', onupdate='CASCADE'), nullable=False)
     overall_result = db.Column(db.Integer, nullable=True, default=None)
     evaluated_paper = db.Column(db.Text, nullable=True)
+
+
+    def row_all(self):
+        return {'result_id':self.result_id,
+                'student_id':self.student_id,
+                'exam_id':self.exam_id,
+                'overall_result':self.overall_result}
+        
+    def __getitem__(self, index):
+        return {'result_id':self.result_id,'student_id':self.student_id, 'exam_id':self.exam_id, 
+                'overall_result':self.overall_result, 'evaluated_paper':self.evaluated_paper}[index]
+    
+
+
 
     
 # with app.app_context():

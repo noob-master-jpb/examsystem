@@ -1,18 +1,11 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-app.debug = True
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
-db = SQLAlchemy(app)
-from models import *
-
-
+class MyList:
+    # def __init__(self, data):
+    #     self.data = data
     
+    def __getitem__(self, index):
+        return {1:2,2:5}[index]
 
-
-
-if __name__ == '__main__':
-    app.run()
-# app.run()
+# Example usage
+my_list = MyList()
+# print(my_list[0:2])  # Output: 1
+print(my_list[2])  # Output: 3
