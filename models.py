@@ -3,16 +3,30 @@ from datetime import *
 db = SQLAlchemy()
 
 class Login(db.Model):
+    #unique identifer for every table
     id = db.Column(db.Integer, primary_key=True)
-    
+
+    #actual Columns 
     username = db.Column(db.Text, unique=True, nullable=False)
     password = db.Column(db.Text, nullable=False)
 
-    student = db.relationship('Student', backref='login', uselist=False)
-    teacher = db.relationship('Teacher', backref='login', uselist=False)
+    #relationship for forgein key
+#   <table_name>  <foregin_key format for flask sql alchemy>
+    student = db.relationship('Student', backref='login')
+    teacher = db.relationship('Teacher', backref='login',)
+    account = db.relationship('Accounts', backref='login')
     
     def __getitem__(self, index):
         return {'username':self.username, 'password':self.password}[index]
+
+class Accounts(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+
+    username = db.Column(db.Text,db.ForeignKey('login.username', onupdate="CASCADE"), unique=True, nullable=False)
+    type = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.String(20), nullable=False)
+    
+    
 
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,7 +48,7 @@ class Student(db.Model):
             'name':self.name,
             'student_id':self.student_id,
         }
-    def __getitem__(self, index):
+    # def __getitem__(self, index):
         return {'username':self.username, 'name':self.name, 'student_id':self.student_id, 'reg_id':self.reg_id, 'dob':self.dob, 'course':self.course}[index]
     
 class Teacher(db.Model):
@@ -82,10 +96,10 @@ class ExamSchedule(db.Model):
 class QuestionPaper(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
-    exam_id = db.Column(db.Integer, db.ForeignKey('exam_schedule.exam_id', onupdate='CASCADE'), unique=True, nullable=False)
+    exam_id = db.Column(db.Integer, db.ForeignKey('exam_schedule.exam_id', onupdate='CASCADE'),nullable=False)
     q_paper_id = db.Column(db.Integer, unique=True, nullable=False)
     course = db.Column(db.String(50))
-    teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id', onupdate='CASCADE'))
+    teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.teacher_id', onupdate='CASCADE'))
     question_paper = db.Column(db.LargeBinary, nullable=False)
 
     answer_key = db.relationship('AnswerKey', backref='question_paper')
@@ -123,7 +137,7 @@ class AnswersCollected(db.Model):
     
     ans_id = db.Column(db.Integer, unique=True)
     exam_id = db.Column(db.Integer, db.ForeignKey('exam_schedule.exam_id', onupdate="CASCADE"), nullable=False)
-    student_id = db.Column(db.Integer, db.ForeignKey('student.id', onupdate="CASCADE"), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.student_id', onupdate="CASCADE"), nullable=False)
     answer_produced = db.Column(db.LargeBinary)
     
     def __getitem__(self, index):
@@ -133,8 +147,8 @@ class Results(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
     result_id = db.Column(db.Integer, unique=True)
-    student_id = db.Column(db.Integer, db.ForeignKey('student.id', onupdate='CASCADE'), nullable=False)
-    exam_id = db.Column(db.Integer, db.ForeignKey('exam_schedule', onupdate='CASCADE'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.student_id', onupdate='CASCADE'), nullable=False)
+    exam_id = db.Column(db.Integer, db.ForeignKey('exam_schedule.exam_id', onupdate='CASCADE'), nullable=False)
     overall_result = db.Column(db.Integer, nullable=True, default=None)
     evaluated_paper = db.Column(db.Text, nullable=True)
 
@@ -149,6 +163,7 @@ class Results(db.Model):
         return {'result_id':self.result_id,'student_id':self.student_id, 'exam_id':self.exam_id, 
                 'overall_result':self.overall_result, 'evaluated_paper':self.evaluated_paper}[index]
     
+
 
 
 

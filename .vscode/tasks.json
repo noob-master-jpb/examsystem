@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"path": "static/svelte_app",
+			"problemMatcher": [],
+			"label": "npm: dev - static/svelte_app",
+			"detail": "rollup -c -w"
+		}
+	]
+}
