@@ -1,0 +1,28 @@
+{
+"course_list":
+    {
+    "CCA": 10,
+    "DCA": 11,
+    "PGDCA": 12,
+    "CDTP": 20,
+    "DDTP": 21,
+    "ADTP": 22,
+    "CFA": 30,
+    "DFA": 31,
+    "CMM": 40,
+    "DMM": 41,
+    "CWD": 50,
+    "DWD": 51,
+    "DCTT": 80,
+    "School": 90
+    },
+"ids": 
+    {
+    "exam_ids": 70,
+    "q_paper_id": 71,
+    "ans_id": 72,
+    "result_ids": 73,
+    "att_id": 15,
+    "T_id":99
+    }
+}

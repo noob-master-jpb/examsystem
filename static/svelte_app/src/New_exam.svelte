@@ -1,20 +1,37 @@
 <script>
     import { onMount } from 'svelte';
+    import { each } from 'svelte/internal';
   
 
     var today = new Date().toISOString().split('T')[0];
 
     let currentTime = '';
-    export let show_new_exam ;
+    let course_list = [];
+    let exam_form = {
+        name:null,
+        date:null,
+        time:null,
+        duration:null,
+        status:"live",
+        course_list:{}
+                }
 
+
+    export let show_new_exam ;
     export let handle_win_new_exam;
 
+
+    (async () => {
+        let response = await fetch('/courselist');
+        course_list = await response.json();
+    })()
+
+    
+
+
+    // console.log(course_list)
     let handleSubmit = async(form) =>{
             exam_form = form
-
-            for (i of form.course_list){
-                exam_form.course_list[i] = true
-            }
             console.log(form)
             let response = await fetch('/newexam', {
                 method: 'POST',
@@ -36,16 +53,9 @@
                         }
             }
     
+    
 
-
-    let exam_form = {
-        name:null,
-        date:null,
-        time:null,
-        duration:null,
-        status:"live",
-        course_list:{}
-                }
+    
     onMount(() => {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, '0');
@@ -82,51 +92,14 @@
                 </div>
             </div>
 
-
             <div id = 'course_list' class = " w-[calc(49%)]">
+                {#each course_list as course}
+    
                 <div class="checkbox_div">
-                    <input type="checkbox" id="CCA" name="CCA" value="CCA" bind:checked={exam_form.course_list.CCA}><label for="CCA" >CCA</label><span></span>
+                    <input type="checkbox" id="{course}" name="{course}" value="{course}" bind:checked={exam_form.course_list[course]}><label for="{course}" >{course}</label><span></span>
                 </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="DCA" name="DCA" value="DCA" bind:checked={exam_form.course_list.DCA}><label for="DCA">DCA</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="PGDCA" name="PGDCA" value="PGDCA" bind:checked={exam_form.course_list.PGDCA}><label for="PGDCA">PGDCA</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="CDTP" name="CDTP" value="CDTP" bind:checked={exam_form.course_list.CDTP}><label for="CDTP">CDTP</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="DDTP" name="DDTP" value="DDTP" bind:checked={exam_form.course_list.DDTP}><label for="DDTP">DDTP</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="ADTP" name="ADTP" value="ADTP" bind:checked={exam_form.course_list.ADTP}><label for="ADTP">ADTP</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="CFA" name="CFA" value="CFA" bind:checked={exam_form.course_list.CFA}><label for="CFA">CFA</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="DFA" name="DFA" value="DFA" bind:checked={exam_form.course_list.DFA}><label for="DFA">DFA</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="CMM" name="CMM" value="CMM" bind:checked={exam_form.course_list.CMM}><label for="CMM">CMM</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="DMM" name="DMM" value="DMM" bind:checked={exam_form.course_list.DMM}><label for="DMM">DMM</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="CWD" name="CWD" value="CWD" bind:checked={exam_form.course_list.CWD}><label for="CWD">CWD</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="DWD" name="DWD" value="DWD" bind:checked={exam_form.course_list.DWD}><label for="DWD">DWD</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="DCTT" name="DCTT" value="DCTT" bind:checked={exam_form.course_list.DCTT}><label for="DCTT">DCTT</label><span></span>
-                </div>
-                <div class="checkbox_div">
-                    <input type="checkbox" id="Sch" name="Sch" value="Sch" bind:checked={exam_form.course_list.Sch}><label for="Sch">Sch</label><span></span>
-                </div>
-                
+                {/each}
+        
             </div>
 
 
@@ -150,6 +123,7 @@
         backdrop-filter: blur(2px);
         top: 0;
         left: 0;
+
         }
 
 

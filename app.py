@@ -5,19 +5,19 @@ from flask_sqlalchemy import SQLAlchemy
 from function_set import json_convertion
 from flask_migrate import Migrate
 
+import json
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
 
 
-
 db.init_app(app)
-
 
 migrate = Migrate(app,db)
 
-
-
+with app.app_context():
+    file = open("course.json")
+    courses = json.load(file)["course_list"]
 
 @app.route('/',methods=['GET','POST'])
 def login():
@@ -90,16 +90,8 @@ def result_examlist():
         return jsonify(data)
     
     
-@app.route("/newexam",methods = ["post"])
-def new_exam():
-    print(request.json)
-    data = request.json
-    if data["name"] and data["date"] and data["time"] and data["duration"] and data["course_list"]:
-        print(data)
-    resp = {"request":"recived",
-            
-            }
-    return jsonify({'server': 'recived'}),200
+
+
 @app.get('/studentlist')
 def userlist():
     with app.app_context():
@@ -117,10 +109,26 @@ def userlist():
                          'status':status})
         return jsonify(data)
 
-
-
-
-
+@app.get("/courselist")
+def courselist():
+    with app.app_context():
+        global courses
+        return jsonify(tuple(courses.keys()))
             
+
+@app.route("/newexam",methods = ["post"])
+def new_exam():
+    print(request.json)
+    data = request.json
+    if data["name"] and data["date"] and data["time"] and data["duration"] and data["course_list"]:
+        print(data)
+    resp = {"request":"recived",
+            }
+    return jsonify({'server': 'recived'}),200
+
+@app.put("/update_exam")
+def update_exam():
+    print(request.json)
+    return jsonify("hello"),200
 if __name__ == '__main__':
     app.run(debug=True,port=80)

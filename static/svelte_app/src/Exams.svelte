@@ -1,12 +1,14 @@
 <script>
     import { onMount } from "svelte";
     import Win_new_exam from "./New_exam.svelte";
-    import Win_indi_exam from "./indi_exam.svelte";
+    import Win_edit_exam from "./indi_exam.svelte";
 
     let exam_list = []
     let show_new_exam = false;
     let exam_form={}
-    let show_each_exam = !false;
+    let show_edit_exam = false;
+    let edit_exam_data= {};
+ 
 
     async function examlist(){
         let response = await fetch('/examlist');
@@ -14,8 +16,14 @@
         }
 
     const handle_win_new_exam = () => {
-        show_new_exam = !show_new_exam
+        show_new_exam = !show_new_exam 
     }
+
+    const handle_edit_exam = (id) => {
+        edit_exam_data = exam_list.find((exams) => exams.exam_id === id);
+        show_edit_exam = !show_edit_exam;
+    }
+
     
     onMount(examlist)
 </script>
@@ -28,9 +36,9 @@
     <div id="opt_new_exam" on:click={() => handle_win_new_exam()} on:keydown>New exam</div>
 </div>
 
-        <Win_new_exam show_new_exam={show_new_exam} on:click={() => handle_win_new_exam()} handle_win_new_exam={() => handle_win_new_exam()} />
-        {#if show_each_exam}
-        <Win_indi_exam/>
+        <Win_new_exam show_new_exam={show_new_exam} on:click={() => handle_win_new_exam()} handle_win_new_exam={async () => handle_win_new_exam()} />
+        {#if show_edit_exam}
+        <Win_edit_exam examdata = {edit_exam_data} {show_edit_exam} {handle_edit_exam}/>
         {/if}
 <div class="exam_list">
     
@@ -41,7 +49,7 @@
         <div class ='time'>time</div>
         <div class = 'duration'>Duration</div>
         <div class="status">status</div>
-        <button class="Delete" >Delete</button>
+        <div class="option" >option</div>
     </div>
     {#each exam_list as exams}
     <div class = "exams" id="{exams.exam_id}">
@@ -51,7 +59,8 @@
         <div class = 'time'>{exams.start_time} </div>
         <div class = 'duration'>{exams.duration} </div>
         <div class="status">{exams.exam_status}</div>
-        <button class="Delete" id = {exams.exam_id}>Delete</button>
+        <button class="edit" id = {exams.exam_id} on:click={() => {handle_edit_exam(exams.exam_id)}}>edit</button>
+        <button>delete</button>
     </div>
     {/each}
 </div>
@@ -73,11 +82,12 @@
 
 #options div:hover{
     cursor: pointer;
+    background-color: lightgrey;
 }
 
 .exams{
     display: grid;
-    grid-template-columns: 22% 22% 12% 12% 12% 12% 8% ;
+    grid-template-columns: 20% 20% 12% 12% 12% 12% 8% 4%;
     margin: 2px 2px;
     padding:  5px;
     /*background-color: rgb(215, 215, 215);*/

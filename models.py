@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import *
+from sqlalchemy.schema import UniqueConstraint
 db = SQLAlchemy()
 
 class Login(db.Model):
@@ -106,6 +107,11 @@ class QuestionPaper(db.Model):
     
     def __getitem__(self, index):
         return {'q_paper_id':self.q_paper_id, 'course':self.course, 'teacher_id':self.teacher_id, 'question_paper':self.question_paper}[index]
+
+    __table_args__ = (
+        UniqueConstraint('exam_id', 'course', name='unique_exam_id_course'),
+    )
+
 
 class AnswerKey(db.Model):
     id = db.Column(db.Integer, primary_key=True)
