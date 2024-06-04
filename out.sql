@@ -40,9 +40,9 @@ CREATE TABLE exam_schedule (
 	UNIQUE (exam_id), 
 	UNIQUE (exam_name)
 );
-INSERT INTO exam_schedule VALUES(1,101,'2024-05-15','09:00:00','11:00:00','02:00:00','Math Midterm','Scheduled');
-INSERT INTO exam_schedule VALUES(2,102,'2024-06-20','10:00:00','12:00:00','02:00:00','Science Final','Scheduled');
-INSERT INTO exam_schedule VALUES(3,103,'2024-07-10','09:30:00','11:30:00','02:00:00','English Final','Scheduled');
+INSERT INTO exam_schedule VALUES(1,101,'2024-05-15','09:00:00','11:00:00','02:00:00','Math Midterm','live');
+INSERT INTO exam_schedule VALUES(2,102,'2024-06-20','10:00:00','12:00:00','02:00:00','Science Final','onwait');
+INSERT INTO exam_schedule VALUES(3,103,'2024-07-10','09:30:00','11:30:00','02:00:00','English Final','Live');
 INSERT INTO exam_schedule VALUES(4,104,'2024-08-05','10:00:00','12:00:00','02:00:00','Chemistry Midterm','Scheduled');
 INSERT INTO exam_schedule VALUES(5,105,'2024-09-15','14:00:00','16:00:00','02:00:00','History Final','Scheduled');
 CREATE TABLE accounts (
@@ -118,24 +118,6 @@ INSERT INTO teacher VALUES(7,'econ_teacher','Economics Teacher',2007);
 INSERT INTO teacher VALUES(8,'math_teacher2','Math Teacher 2',2008);
 INSERT INTO teacher VALUES(9,'psych_teacher','Psychology Teacher',2009);
 INSERT INTO teacher VALUES(10,'soc_teacher','Sociology Teacher',2010);
-CREATE TABLE question_paper (
-	id INTEGER NOT NULL, 
-	exam_id INTEGER NOT NULL, 
-	q_paper_id INTEGER NOT NULL, 
-	course VARCHAR(50), 
-	teacher_id INTEGER, 
-	question_paper BLOB NOT NULL, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(exam_id) REFERENCES exam_schedule (exam_id) ON UPDATE CASCADE, 
-	UNIQUE (q_paper_id), 
-	FOREIGN KEY(teacher_id) REFERENCES teacher (teacher_id) ON UPDATE CASCADE
-);
-INSERT INTO question_paper VALUES(1,101,1,'Math',2001,'PDF content of Math question paper for Math Midterm');
-INSERT INTO question_paper VALUES(2,102,2,'Science',2002,'PDF content of Science question paper for Science Final');
-INSERT INTO question_paper VALUES(3,103,3,'English',2004,'PDF content of English question paper for English Final');
-INSERT INTO question_paper VALUES(4,104,4,'Chemistry',2006,'PDF content of Chemistry question paper for Chemistry Midterm');
-INSERT INTO question_paper VALUES(5,105,5,'History',2005,'PDF content of History question paper for History Final');
-INSERT INTO question_paper VALUES(6,102,6,'Physics',2003,'PDF content of Physics question paper for Physics Midterm');
 CREATE TABLE attendance (
 	id INTEGER NOT NULL, 
 	att_id INTEGER, 
@@ -234,4 +216,28 @@ INSERT INTO answer_key VALUES(3,3,'Answer key for English Final');
 INSERT INTO answer_key VALUES(4,4,'Answer key for Chemistry Midterm');
 INSERT INTO answer_key VALUES(5,5,'Answer key for History Final');
 INSERT INTO answer_key VALUES(6,6,'Answer key for Physics Midterm');
+CREATE TABLE alembic_version (
+	version_num VARCHAR(32) NOT NULL, 
+	CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)
+);
+INSERT INTO alembic_version VALUES('10bb02479d89');
+CREATE TABLE IF NOT EXISTS "question_paper" (
+	id INTEGER NOT NULL, 
+	exam_id INTEGER NOT NULL, 
+	q_paper_id INTEGER NOT NULL, 
+	course VARCHAR(50), 
+	teacher_id INTEGER, 
+	question_paper BLOB NOT NULL, 
+	PRIMARY KEY (id), 
+	CONSTRAINT unique_exam_id_course UNIQUE (exam_id, course), 
+	FOREIGN KEY(teacher_id) REFERENCES teacher (teacher_id) ON UPDATE CASCADE, 
+	UNIQUE (q_paper_id), 
+	FOREIGN KEY(exam_id) REFERENCES exam_schedule (exam_id) ON UPDATE CASCADE
+);
+INSERT INTO question_paper VALUES(1,101,1,'Math',2001,'PDF content of Math question paper for Math Midterm');
+INSERT INTO question_paper VALUES(2,102,2,'Science',2002,'PDF content of Science question paper for Science Final');
+INSERT INTO question_paper VALUES(3,103,3,'English',2004,'PDF content of English question paper for English Final');
+INSERT INTO question_paper VALUES(4,104,4,'Chemistry',2006,'PDF content of Chemistry question paper for Chemistry Midterm');
+INSERT INTO question_paper VALUES(5,105,5,'History',2005,'PDF content of History question paper for History Final');
+INSERT INTO question_paper VALUES(6,102,6,'Physics',2003,'PDF content of Physics question paper for Physics Midterm');
 COMMIT;

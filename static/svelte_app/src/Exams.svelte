@@ -60,7 +60,7 @@
         <div class = 'duration'>{exams.duration} </div>
         <div class="status">{exams.exam_status}</div>
         <button class="edit" id = {exams.exam_id} on:click={() => {handle_edit_exam(exams.exam_id)}}>edit</button>
-        <button>delete</button>
+        <button class=" border-none">❌</button>
     </div>
     {/each}
 </div>

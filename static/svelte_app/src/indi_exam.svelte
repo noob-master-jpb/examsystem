@@ -37,25 +37,25 @@
 {#if show_edit_exam}
     <div id="backdrop">
         <form on:submit|preventDefault={() => handleupdate(examdata)}>
-            <div id="exampage">
+            <div id="exampage" >
                 <div id="examdetails">
                     <div id="exam_identity">
                         <div id="exam_id" class=" text-xl p-1">{examdata.exam_id}</div>
                     </div>
                     <div id="options">
                         <div id="exam_timing">
-                            Change Name
+                            <b>Change Name</b> 
                             <input type="text" name="inp_exam_name" id="id_exam_name" placeholder="Exam Name" bind:value ={examdata.exam_name}>
-                            <label for="id_exam_time">Change Date:</label> 
+                            <label for="id_exam_time"><b>Change Date:</b></label> 
                             <input type="date" name="inp_exam_date" id="id_exam_date" min={today} bind:value={examdata.exam_date}>
-                            <label for="id_exam_time"> time:</label> 
+                            <label for="id_exam_time"> <b>Change Time:</b></label> 
                             <input type="time" name="inp_exam_time" id="id_exam_time" class=" ml-auto w-1/3" bind:value= {examdata.start_time}>
-                            <div>Duration</div>
+                            <div><b>Change Duration</b></div>
                             <input type="number" min = '0' max = '3' bind:value={duration_hrs} placeholder="Hours">
                             <input type="number" min = '00' max = '59' placeholder="Minutes" bind:value={duration_min}>
                             
                         </div>
-                        Status
+                        <b>Status</b>
                         <div id="exam_status" class="flex justify-around" >
                             {#if examdata.exam_status == 'live'}
                             <div class="radio_btn">
@@ -180,11 +180,13 @@
     }
 
     #close{
-        position: fixed;
-        top: calc(50% - 32%);
-        left: calc(50% + 10%);
-        width: 25px;
-        height: 25px;
+        position: absolute;
+        /* top: calc(50% - 32%); */
+        /* left: calc(50% + 10%); */
+        top: 0;
+        right: 0;
+        /* width: 25px; */
+        /* height: 25px; */
         background: none;
         text-decoration: none;
         border: none;

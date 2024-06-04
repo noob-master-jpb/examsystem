@@ -15,9 +15,23 @@ db.init_app(app)
 
 migrate = Migrate(app,db)
 
-with app.app_context():
-    file = open("course.json")
-    courses = json.load(file)["course_list"]
+
+courses = {
+"10": "CCA",
+"11": "DCA",
+"12": "PGDCA",
+"20": "CDTP",
+"21": "DDTP",
+"22": "ADTP",
+"30": "CFA",
+"31": "DFA",
+"40": "CMM",
+"41": "DMM",
+"50": "CWD",
+"51": "DWD",
+"80": "DCTT",
+"90": "School"
+}
 
 @app.route('/',methods=['GET','POST'])
 def login():
@@ -113,7 +127,7 @@ def userlist():
 def courselist():
     with app.app_context():
         global courses
-        return jsonify(tuple(courses.keys()))
+        return jsonify(tuple(courses.values()))
             
 
 @app.route("/newexam",methods = ["post"])

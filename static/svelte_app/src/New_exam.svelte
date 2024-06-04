@@ -4,18 +4,22 @@
   
 
     var today = new Date().toISOString().split('T')[0];
-
+    
     let currentTime = '';
-    let course_list = [];
+    let courselist = [];
     let exam_form = {
         name:null,
         date:null,
         time:null,
+        duration_hrs:null,
+        duration_min:null,
         duration:null,
         status:"live",
         course_list:{}
-                }
+                };
 
+
+    
 
     export let show_new_exam ;
     export let handle_win_new_exam;
@@ -23,16 +27,26 @@
 
     (async () => {
         let response = await fetch('/courselist');
-        course_list = await response.json();
+        courselist = await response.json();
     })()
 
     
 
 
     // console.log(course_list)
-    let handleSubmit = async(form) =>{
-            exam_form = form
-            console.log(form)
+    let handleSubmit = async() =>{
+            if (exam_form.duration_hrs == null){exam_form.duration_hrs = "00"};
+            if (exam_form.duration_min == null){exam_form.duration_min = "00"};
+
+            if (String(exam_form.duration_min).length == 1){exam_form.duration_min = "0" + exam_form.duration_min};
+            if (String(exam_form.duration_hrs).length == 1){exam_form.duration_hrs = "0" + exam_form.duration_hrs};
+
+            exam_form.duration = String(exam_form.duration_hrs)+":" + String(exam_form.duration_min) + ":00";
+
+            delete exam_form.duration_hrs;
+            delete exam_form.duration_min;
+            
+            console.log(exam_form);
             let response = await fetch('/newexam', {
                 method: 'POST',
                 headers: {
@@ -46,12 +60,13 @@
             exam_form = {
                         name:null,
                         date:null,
-                        time:null,
+                        time:null,duration_hrs:null,
+                        duration_min:null,
                         duration:null,
                         status:"live",
                         course_list:{}
                         }
-            }
+            } 
     
     
 
@@ -76,7 +91,8 @@
                 <input type="time" name="inp_exam_time" id="id_exam_time" min={currentTime} class=" ml-auto w-full" bind:value={exam_form.time} >
 
                 <div id="id_exam_duration">Duration:
-                    <input type="number" min = '0' max = '3' placeholder="Hours"> <input type="number" min = '00' max = '59' placeholder="Minutes" bind:value={exam_form.duration}>
+                    <input type="number" min = '0' max = '3' placeholder="Hours" bind:value={exam_form.duration_hrs}>
+                    <input type="number" min = '00' max = '59' placeholder="Minutes" bind:value={exam_form.duration_min}>
                 </div>
 
                 <div id="exam_status" class="flex justify-around" >
@@ -93,7 +109,7 @@
             </div>
 
             <div id = 'course_list' class = " w-[calc(49%)]">
-                {#each course_list as course}
+                {#each courselist as course}
     
                 <div class="checkbox_div">
                     <input type="checkbox" id="{course}" name="{course}" value="{course}" bind:checked={exam_form.course_list[course]}><label for="{course}" >{course}</label><span></span>
