@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import Win_new_exam from "./New_exam.svelte";
-    import Win_edit_exam from "./indi_exam.svelte";
+    import Win_edit_exam from "./Edit_exam.svelte";
 
     let exam_list = []
     let show_new_exam = false;
@@ -60,7 +60,7 @@
         <div class = 'duration'>{exams.duration} </div>
         <div class="status">{exams.exam_status}</div>
         <button class="edit" id = {exams.exam_id} on:click={() => {handle_edit_exam(exams.exam_id)}}>edit</button>
-        <button class=" border-none">❌</button>
+        <button class="border-none">❌</button>
     </div>
     {/each}
 </div>

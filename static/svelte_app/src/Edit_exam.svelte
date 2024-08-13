@@ -90,7 +90,7 @@
                             {/if}
                         </div>
                     </div>
-                    <div id="confirm" class = "flex flex-col justify-items-center text-center p-2">
+                    <div id="confirm" class = "flex flex-col justify-items-center text-center p-8">
                         <button type="submit" on:click={() => handle_edit_exam}>confirm</button>
                     </div>
                     
@@ -116,9 +116,9 @@
     
     #exampage{
         position: absolute;
-        top: calc(50% - 30%);
+        top: calc(50% - 25%);
         left: calc(50% - 10%);
-        height: 60%;
+        height: 50%;
         width: 20%;
         background-color: white;
         text-decoration: none;

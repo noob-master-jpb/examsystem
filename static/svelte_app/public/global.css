@@ -34,7 +34,7 @@ body{
 
 header{
     /* flex: .05; */
-    background-color:rgb(84, 134, 229);
+    background-color:deepskyblue;
     display: flex;
     height: auto;
     /* width: 100px; */
@@ -47,7 +47,7 @@ header{
     text-align: center;
     padding: 10px 0;
     border-right: solid 2px;
-    background-color: cornflowerblue;
+    background-color:deepskyblue;
 
 }
 
@@ -78,7 +78,7 @@ header{
     display: flex;
     flex-direction: column;
     width: 10%;
-    background-color: cornflowerblue;
+    background-color: deepskyblue;
     min-width: 100px;
     /* background-color: rgb(219, 219, 219); */
     /* align-items: center; */

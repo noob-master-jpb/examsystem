@@ -63,6 +63,7 @@ def exams():
 @app.route('/results')
 def results():
     return render_template('index.html',title = 'results')
+
 @app.route('/students')
 def students():
     return render_template('index.html')
